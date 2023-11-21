@@ -297,6 +297,52 @@ app.post("/userprofile", async (req, res) => {
     }
 })
 
+app.post("/ucanceltickets", async (req, res) => {
+    const { username,
+        selectedEvent} = req.body
+
+    try {
+        const check = await usereventsconn.deleteOne({username:username,eventname:selectedEvent})
+
+        if (check) {
+            res.json("exist")
+        }
+        else {
+            res.json("notexist")
+        }
+
+
+
+    }
+    catch (e) {
+        res.json("fail")
+    }
+
+})
+
+app.post("/ocanceltickets", async (req, res) => {
+    const { username,
+        selectedEvent} = req.body
+
+    try {
+        const check = await orgeventsconn.deleteOne({username:username,eventname:selectedEvent})
+        const check1 = await usereventsconn.deleteOne({eventname:selectedEvent})
+        if (check) {
+            res.json("exist")
+        }
+        else {
+            res.json("notexist")
+        }
+
+
+
+    }
+    catch (e) {
+        res.json("fail")
+    }
+
+})
+
 app.listen(8000, () => {
     console.log("port connected");
 })
