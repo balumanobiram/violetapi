@@ -299,10 +299,10 @@ app.post("/userprofile", async (req, res) => {
 
 app.post("/ucanceltickets", async (req, res) => {
     const { username,
-        selectedEvent,booked} = req.body
+        selectedEvent,selectedBook} = req.body
 
     try {
-        const check = await usereventsconn.deleteOne({username:username,eventname:selectedEvent,booked:booked})
+        const check = await usereventsconn.deleteOne({username:username,eventname:selectedEvent,booked:selectedBook})
 
         if (check) {
             res.json("exist")
